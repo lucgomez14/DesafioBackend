@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Build\Common.props" />
+  <PropertyGroup>
+    <RootNamespace>desafio_backend.Infrastructure</RootNamespace>
+    <AssemblyName>desafio_backend.Infrastructure</AssemblyName>
+    <Version>8.1.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="EventHandler\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Andreani.ARQ.CQRS" Version="8.1.2" />
+    <PackageReference Include="Andreani.Onboarding.Event" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+</Project>

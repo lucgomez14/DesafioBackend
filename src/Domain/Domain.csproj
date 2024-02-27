@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Build\Common.props"/>
+  <PropertyGroup>
+    <RootNamespace>desafio_backend.Domain</RootNamespace>
+    <AssemblyName>desafio_backend.Domain</AssemblyName>
+    <Version>8.1.0</Version>
+  </PropertyGroup>
+</Project>

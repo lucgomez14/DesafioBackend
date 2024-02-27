@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Build\Common.props" />
+  <PropertyGroup>
+    <RootNamespace>desafio_backend.Application</RootNamespace>
+    <AssemblyName>desafio_backend.Application</AssemblyName>
+    <Version>8.1.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Andreani.Arq.AMQStreams" Version="8.1.2" />
+    <PackageReference Include="Andreani.Arq.Core.Relational" Version="8.1.2" />
+    <PackageReference Include="Andreani.Arq.Observability" Version="8.1.2" />
+    <PackageReference Include="Andreani.Onboarding.Event" Version="6.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UseCase\V2\" />
+  </ItemGroup>
+</Project>
