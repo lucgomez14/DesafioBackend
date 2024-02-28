@@ -3,6 +3,7 @@ using desafio_backend.Application.Common.Interfaces;
 using desafio_backend.Application.UseCase.V1.PedidosOperation.Queries.GetById;
 using desafio_backend.Domain.Entities;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -67,6 +68,20 @@ namespace Application.Test.UseCase.V1.PedidosOperation.Queries
                 var result = await _handler.Handle(request, _cancellationToken);
                 // Assert
                 result.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
+
+        [Fact]
+        public async Task Handler_GetPersonByName_ThrowUpdateDatabase()
+        {
+                // Arrange
+                var request = new GetPedidoById
+                {
+                    Id = Guid.NewGuid().ToString()
+                };
+                _query.Setup(_ => _.GetPedidoById(It.IsAny<Guid>())).ThrowsAsync(new DbUpdateException());
+                // Atc
+                // Assert
+                await Assert.ThrowsAsync<DbUpdateException>(() => _handler.Handle(request, _cancellationToken));
         }
     }
 }
