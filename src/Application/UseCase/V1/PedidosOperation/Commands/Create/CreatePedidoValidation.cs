@@ -20,12 +20,17 @@ namespace desafio_backend.Application.UseCase.V1.PedidosOperation.Commands.Creat
                 .NotEmpty()
                 .WithMessage("'CuentaCorriente' can't be null")
                 .Matches("^[0-9]*$")
-                .WithMessage("'CuentaCorriente' can only contain 255 characters");
+                .WithMessage("'CuentaCorriente' can only contain numbers")
+                .MaximumLength(255)
+                .WithMessage("'CuentaCorriente' exceeds the maximum of 255 characters");
             RuleFor(x => x.CodigoDeContratoInterno)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .WithMessage("'CodigoDeContratoInterno' can't be null")
                 .Matches("^[0-9]*$")
-                .WithMessage("'CodigoDeContratoInterno' can only contain 255 characters");
+                .WithMessage("'CodigoDeContratoInterno' can only contain numbers")
+                .MaximumLength(255)
+                .WithMessage("'CodigoDeContratoInterno' exceeds the maximum of 255 characters");
+        }
     }
 }

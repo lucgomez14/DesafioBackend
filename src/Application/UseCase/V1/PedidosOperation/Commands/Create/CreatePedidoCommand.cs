@@ -22,7 +22,7 @@ namespace desafio_backend.Application.UseCase.V1.PedidosOperation.Commands.Creat
         public string CodigoDeContratoInterno { get; set; }
     }
 
-    public class CreatePedidoHandler(ICommandSqlServer repository, ILogger<CreatePedidoHandler> logger, Andreani.Arq.AMQStreams.Interface.IPublisher publisher) : IRequestHandler<CreatePedidoCommand, Response<CreatePedidoResponse>>
+    public class CreatePedidoCommandHandler(ICommandSqlServer repository, ILogger<CreatePedidoCommandHandler> logger, Andreani.Arq.AMQStreams.Interface.IPublisher publisher) : IRequestHandler<CreatePedidoCommand, Response<CreatePedidoResponse>>
     {
  
 

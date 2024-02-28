@@ -36,6 +36,5 @@ namespace desafio_backend.Controllers.V1
         [ProducesResponseType(typeof(List<Notify>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(List<Notify>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(string id) => this.Result(await Mediator.Send(new GetPedidoById() { Id = id }));
-        //public async Task<IActionResult> Get(string name) => this.Result(await Mediator.Send(new GetPersonByName() { Name = name }));
     }
 }
