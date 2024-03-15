@@ -1,0 +1,20 @@
+DataAccessRegistry:
+  Name: "default"
+  ReadOnlyConnection: "Data Source=localhost,1433;Initial Catalog=test;Persist Security Info=True;User ID=sa;Password=Admin#1234;TrustServerCertificate=true"
+  TransactionalConnection: "Data Source=localhost,1433;Initial Catalog=test;Persist Security Info=True;User ID=sa;Password=Admin#1234;TrustServerCertificate=true"
+  ProviderName: System.Data.SqlClient
+
+AMQStreams:
+  BootstrapServer: "SSL://cluster-kafka-bootstrap-amq-streams-test.apps.ocptest.andreani.com.ar:443"
+  SchemaUrl: "http://apicurioregistry.apps.ocptest.andreani.com.ar/apis/ccompat/v6"
+  Protocol: Ssl
+  AutoOffsetReset: Earliest
+  AutoRegisterSchemas: true
+  MaxRetry: 3
+
+ElasticApm:
+    SecretToken: ""
+    ServerUrls: "https://apm-server-architecture-it-test.apps.ocptest.andreani.com.ar"
+    ServiceName: "desafioBackend"
+    Environment: "Development"
+    Enabled: false
