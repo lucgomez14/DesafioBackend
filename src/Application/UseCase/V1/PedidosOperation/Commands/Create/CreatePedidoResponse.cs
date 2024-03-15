@@ -9,5 +9,6 @@ namespace desafio_backend.Application.UseCase.V1.PedidosOperation.Commands.Creat
     public class CreatePedidoResponse
     {
         public Guid Id { get; set; }
+        public string Message { get; set; }
     }
 }

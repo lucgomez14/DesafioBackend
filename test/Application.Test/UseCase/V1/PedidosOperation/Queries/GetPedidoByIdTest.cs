@@ -71,7 +71,7 @@ namespace Application.Test.UseCase.V1.PedidosOperation.Queries
         }
 
         [Fact]
-        public async Task Handler_GetPersonByName_ThrowUpdateDatabase()
+        public async Task Handler_GetPedidoByName_ThrowUpdateDatabase()
         {
                 // Arrange
                 var request = new GetPedidoById
@@ -79,9 +79,10 @@ namespace Application.Test.UseCase.V1.PedidosOperation.Queries
                     Id = Guid.NewGuid().ToString()
                 };
                 _query.Setup(_ => _.GetPedidoById(It.IsAny<Guid>())).ThrowsAsync(new DbUpdateException());
-                // Atc
-                // Assert
-                await Assert.ThrowsAsync<DbUpdateException>(() => _handler.Handle(request, _cancellationToken));
+            // Atc
+            // Assert
+            var result = await _handler.Handle(request, _cancellationToken);
+            result.StatusCode.Should().Be(System.Net.HttpStatusCode.InternalServerError);
         }
     }
 }

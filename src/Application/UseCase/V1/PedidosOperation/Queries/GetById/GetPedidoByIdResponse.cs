@@ -17,6 +17,7 @@ namespace desafio_backend.Application.UseCase.V1.PedidosOperation.Queries.GetByI
 
         public string cuentaCorriente { get; set; }
         public string cuando {  get; set; }
+        public string message { get; set; }
 
     }
 }

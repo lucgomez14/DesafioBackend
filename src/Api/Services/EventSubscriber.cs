@@ -23,10 +23,18 @@ namespace desafio_backend.Services
 
         public async Task Consume(Pedido @event, ConsumerMetadata metaData)
         {
-            var pedido = await _query.GetPedidoById(new Guid(@event.id));
-            pedido.NumeroDePedido = @event.numeroDePedido;
-            pedido.EstadoDelPedido = int.Parse(@event.estadoDelPedido);
-            await _repository.SaveChangeAsync();
+            //try
+            //{
+                var pedido = await _query.GetPedidoById(new Guid(@event.id));
+                //if (pedido != null) 
+                //{
+                    pedido.NumeroDePedido = @event.numeroDePedido;
+                    pedido.EstadoDelPedido = int.Parse(@event.estadoDelPedido);
+                    await _repository.SaveChangeAsync();
+                //}
+
+            //}
+           
         }
     }
 }

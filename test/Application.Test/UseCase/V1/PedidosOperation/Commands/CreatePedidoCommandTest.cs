@@ -61,11 +61,14 @@ namespace Application.Test.UseCase.V1.PedidosOperation.Commands
                 };
 
                 // Act
-                _repository.Setup(_ => _.SaveChangeAsync()).ThrowsAsync(new DbUpdateException());
-                // Assert
-                await Assert.ThrowsAsync<DbUpdateException>(() => _handler.Handle(request, _cancellationToken));
-            } 
+                _repository.Setup(_ => _.SaveChangeAsync()).ThrowsAsync(new Exception());
 
-            //Agregar casos que no funcionen D:
+                // Assert
+
+                var result = await _handler.Handle(request, _cancellationToken);
+                result.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+            }
+
+
     }
 }

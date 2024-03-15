@@ -30,32 +30,50 @@ namespace desafio_backend.Application.UseCase.V1.PedidosOperation.Commands.Creat
         {
             logger.LogInformation("Request recibido con los datos: CuentaCorriente '{0}' y Codigo de contrato interno '{1}' ", request.CuentaCorriente, request.CodigoDeContratoInterno);
             var id = Guid.NewGuid();
-            var pedido = new Domain.Entities.Pedido
+            try
             {
-                Id = id,
-                NumeroDePedido = null,
-                CicloDelPedido = id.ToString(),
-                CodigoDeContratoInterno = long.Parse(request.CodigoDeContratoInterno),
-                Cuando = DateOnly.FromDateTime(DateTime.Now),
-                CuentaCorriente = request.CuentaCorriente,
-                EstadoDelPedido = 1,
+                var pedido = new Domain.Entities.Pedido
+                {
+                    Id = id,
+                    NumeroDePedido = null,
+                    CicloDelPedido = id.ToString(),
+                    CodigoDeContratoInterno = long.Parse(request.CodigoDeContratoInterno),
+                    Cuando = DateOnly.FromDateTime(DateTime.Now),
+                    CuentaCorriente = request.CuentaCorriente,
+                    EstadoDelPedido = 1,
 
-            };
-            repository.Insert(pedido);
-            await repository.SaveChangeAsync();
-            
-            var message = new Andreani.Scheme.Onboarding.Pedido
+                };
+                repository.Insert(pedido);
+                await repository.SaveChangeAsync();
+
+                var message = new Andreani.Scheme.Onboarding.Pedido
+                {
+                    id = pedido.Id.ToString(),
+                    cicloDelPedido = pedido.CicloDelPedido,
+                    codigoDeContratoInterno = (long)pedido.CodigoDeContratoInterno,
+                    estadoDelPedido = pedido.EstadoDelPedido.ToString(),
+                    cuentaCorriente = long.Parse(pedido.CuentaCorriente),
+                    cuando = pedido.Cuando.ToString()
+                };
+                await publisher.To(message, "PedidoCreado");
+
+                logger.LogInformation("El pedido fue agregado correctamente, Cuenta corriente: {0}, Contrato Interno: {1}", request.CuentaCorriente, request.CodigoDeContratoInterno);
+
+            }
+            catch (Exception ex) //Después dividirlo en kafka y bd
             {
-                id = pedido.Id.ToString(),
-                cicloDelPedido = pedido.CicloDelPedido,
-                codigoDeContratoInterno = (long)pedido.CodigoDeContratoInterno,
-                estadoDelPedido = pedido.EstadoDelPedido.ToString(),
-                cuentaCorriente = long.Parse(pedido.CuentaCorriente),
-                cuando = pedido.Cuando.ToString()
-            };
-            await publisher.To(message, "PedidoCreado");
+                logger.LogError("Ocurrió un error {0}",ex.Message);
 
-            logger.LogDebug("El pedido fue agregado correctamente");
+                return new Response<CreatePedidoResponse>
+                {
+                    Content = new CreatePedidoResponse
+                    {
+                        Message = "Ocurrió un error"
+                    },
+                    StatusCode = System.Net.HttpStatusCode.InternalServerError
+                };
+            }
+
 
             var headers = new Dictionary<string, string>
             {
